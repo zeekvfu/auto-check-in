@@ -1,0 +1,13 @@
+{
+	"log_level": "logging.DEBUG",
+	"v2ex": [
+		{
+			"user_name": "",
+			"password": ""
+		},
+		{
+			"user_name": "",
+			"password": ""
+		}
+	]
+}
