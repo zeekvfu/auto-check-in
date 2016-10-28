@@ -8,7 +8,7 @@ auto-check-in
 Linux/Windows + Python 3.x
 
 ## V2EX
-登录 [V2EX](https://www.v2ex.com/)，领取铜币。
+登录 [V2EX](https://www.v2ex.com/)，领取铜币。  
 运行方法：
 
 ```
