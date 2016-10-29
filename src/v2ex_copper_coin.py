@@ -6,12 +6,10 @@
 import os
 import sys
 import random
-import datetime
 import time
 import requests
-import logging
 
-from io import StringIO, BytesIO
+from io import StringIO
 from lxml import etree
 
 from util.utility import get_logger
