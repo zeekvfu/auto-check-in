@@ -152,20 +152,25 @@ def test_port_open(logger, ip, port, protocol='tcp', retry=2):
     flag = False
     try:
         sock = socket.socket(socket.AF_INET, socket_type)
+        sock.settimeout(5)
         sock.connect((ip, port))
         flag = True
     except OverflowError as e:
         logger.error("%s(): OverflowError" % this_func_name)
+    except socket.timeout as e:
+        logger.error("%s(): socket.timeout" % this_func_name)
+        if retry > 0:
+            return test_port_open(logger, ip, port, protocol, retry)
     except TimeoutError as e:
-        logger.error("%s(): TimeoutError\terrno: %d\tstrerror: %s" % (this_func_name, e.errno, e.strerror))
+        logger.error("%s(): TimeoutError\terrno: %s\tstrerror: %s" % (this_func_name, e.errno, e.strerror))
         if retry > 0:
             return test_port_open(logger, ip, port, protocol, retry)
     except ConnectionRefusedError as e:
-        logger.error("%s(): ConnectionRefusedError\terrno: %d\tstrerror: %s" % (this_func_name, e.errno, e.strerror))
+        logger.error("%s(): ConnectionRefusedError\terrno: %s\tstrerror: %s" % (this_func_name, e.errno, e.strerror))
         if retry > 0:
             return test_port_open(logger, ip, port, protocol, retry)
     except OSError as e:
-        logger.error("%s(): OSError\terrno: %d\tstrerror: %s" % (this_func_name, e.errno, e.strerror))
+        logger.error("%s(): OSError\terrno: %s\tstrerror: %s" % (this_func_name, e.errno, e.strerror))
         if retry > 0:
             return test_port_open(logger, ip, port, protocol, retry)
     finally:
@@ -188,8 +193,7 @@ def get_html_content(logger, url, post_data=None, referer=None, user_agent=None,
         proxy_dict = {}
         proxy_dict[proxy_pair[0]] = proxy_pair[1]
         proxy_handler = urllib.request.ProxyHandler(proxy_dict)
-        auth_handler = urllib.request.HTTPBasicAuthHandler()
-        opener = urllib.request.build_opener(proxy_handler, auth_handler, urllib.request.HTTPHandler, urllib.request.HTTPSHandler)
+        opener = urllib.request.build_opener(proxy_handler, urllib.request.HTTPHandler, urllib.request.HTTPSHandler)
         urllib.request.install_opener(opener)
     # 伪造 HTTP request header
     _headers = {}
