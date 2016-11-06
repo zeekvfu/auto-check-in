@@ -2,7 +2,7 @@ auto-check-in
 =======
 
 ### 用途
-多家网站（eg. V2EX）的自动登录、签到，支持多用户。
+多家网站（eg. V2EX、淘宝）的自动登录、签到。支持多用户。
 ### 运行环境
 Linux/Windows + Python 3.x
 
