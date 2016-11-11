@@ -49,9 +49,15 @@ class V2EX:
         parser = etree.HTMLParser()
         tree = etree.parse(StringIO(response.text), parser)
         elements = tree.xpath('//form[@method="post" and @action="/signin"]/table[@cellpadding="5" and @cellspacing="0" and @border="0" and @width="100%"]//tr[position()<last()]/td[2]/input')
-        user_name_key = elements[0].xpath('@name')[0]
-        password_key = elements[1].xpath('@name')[0]
-        once = elements[2].xpath('@value')[0]
+        user_name_key = None
+        if len(elements[0].xpath('@name')) == 1:
+            user_name_key = elements[0].xpath('@name')[0]
+        password_key = None
+        if len(elements[1].xpath('@name')) == 1:
+            password_key = elements[1].xpath('@name')[0]
+        once = None
+        if len(elements[2].xpath('@value')) == 1:
+            once = elements[2].xpath('@value')[0]
         self.logger.debug("%s(): user_name_key: %s\tpassword_key: %s\tonce: %s" % (this_func_name, user_name_key, password_key, once))
         return user_name_key, password_key, once
 
@@ -59,6 +65,9 @@ class V2EX:
     def login(self, user_name_key, password_key, once):
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
+        if user_name_key is None or password_key is None or once is None:
+            self.logger.debug("%s(): user_name_key/password_key/once None ..." % this_func_name)
+            return False
         # 必须带上 referer
         self.session.headers.update({'referer': self.login_url})
         d = {
