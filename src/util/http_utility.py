@@ -185,7 +185,7 @@ def test_port_open(logger, ip, port, protocol='tcp', retry=2):
 def get_html_content(logger, url, post_data=None, referer=None, user_agent=None, proxy_pair=None, sleep_interval=3, retry=3):
     this_func_name = sys._getframe().f_code.co_name
     logger.info("%s(): retry\t\t%d" % (this_func_name, retry))
-    retry = retry-1
+    retry = retry - 1
     start_timestamp = time.time()
     # 使用 HTTP/HTTPS 代理
     if proxy_pair is not None and len(proxy_pair) == 2:
@@ -225,7 +225,7 @@ def get_html_content(logger, url, post_data=None, referer=None, user_agent=None,
             logger.info("%s(): encoding\t%s" % (this_func_name, encoding))
             if encoding is not None:
                 encodings = merge_list_preserving_order([Codec.encoding_map.get(encoding, encoding)], Codec.encoding_list)
-            logger.info("%s(): encodings\t%s" % (this_func_name, ', '.join(encodings)))
+            logger.info("%s(): encodings\t%s" % (this_func_name, encodings))
             html_content = None
             for encoding in encodings:
                 html_content = Codec.decode(logger, content, encoding)
