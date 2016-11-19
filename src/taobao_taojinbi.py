@@ -57,7 +57,7 @@ class TaoBao:
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
         self.driver.get(self.login_url)
-        # 登录方式切换：二维码扫描、用户名密码
+        # 登录方式切换：扫描二维码、用户名密码
         try:
             self.driver.find_element_by_xpath('//div[@class="login-switch" and @onselectstart="return false;"]/i[@id="J_Quick2Static" and @class="iconfont static"]').click()
         except NoSuchElementException as e:
@@ -72,7 +72,7 @@ class TaoBao:
         # 请按住滑块，拖动到最右边
         try:
             source = self.driver.find_element_by_xpath('//span[@id="nc_1_n1z" and @class="nc_iconfont btn_slide" and @style]')
-            ActionChains(self.driver).drag_and_drop_by_offset(source, 1200, 0).perform()
+            ActionChains(self.driver).drag_and_drop_by_offset(source, 600, 0).perform()
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
         return
@@ -116,17 +116,8 @@ class TaoBao:
         for url in urls:
             self.driver.get(url)
             time.sleep(5)
-
             self.driver.find_element_by_xpath('//a[@href="#" and @class="now-take J_NowSignIn" and text()="立即签到"]').click()
-
-            # element = self.driver.find_element_by_xpath('//a[@href="#" and @class="now-take J_NowSignIn" and text()="立即签到"]')
-            # ActionChains(self.driver).click(element).perform()
-
-            # element = self.driver.find_element_by_xpath('//a[@href="#" and @class="now-take J_NowSignIn" and text()="立即签到"]')
-            # ActionChains(self.driver).move_by_offset(-100, -100).context_click(element).perform()
-            # time.sleep(5)
-            # element.send_keys(Keys.ESCAPE);
-            # element.send_keys(Keys.ENTER);
+            time.sleep(3)
 
 
     # 收藏店铺
