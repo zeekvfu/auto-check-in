@@ -9,7 +9,7 @@ Linux/Windows + Python 3.x
 ### 用途
 登录[淘宝](https://www.taobao.com/)，领取淘金币。
 ### 软件包依赖
-Selenium, Chrome, lxml
+Selenium, Chrome/Firefox, lxml
 ### 运行方法
 在 GUI 下，  
 ```
