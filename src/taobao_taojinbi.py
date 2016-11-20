@@ -10,7 +10,7 @@ import time
 from io import StringIO
 from lxml import etree
 
-from selenium.webdriver import PhantomJS, Chrome, Firefox
+from selenium.webdriver import Chrome, Firefox
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -44,9 +44,6 @@ class TaoBao:
         self.logger.debug("%s(): start ..." % this_func_name)
         self.user_name = user_name
         self.password = password
-
-        # # PhantomJS
-        # self.driver = PhantomJS(executable_path='/home/nostalgia/_program/phantomjs-2.1.1-linux-x86_64/bin/phantomjs')
 
         # Chrome
         self.driver = Chrome()
