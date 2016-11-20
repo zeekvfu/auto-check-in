@@ -34,6 +34,8 @@ class TaoBao:
     regular_check_in_url = 'https://taojinbi.taobao.com/index.htm'
     shop_check_in_url = 'https://www.taobao.com/markets/taojinbi/happy-valley'
     luck4ever_taojinbi_url = 'http://www.luck4ever.net/archives/taojinbi-50.html'
+    # 「网赚之家」领取淘金币 URL，需要先登录
+    wz598_taojinbi_url = 'http://www.wz598.com/taojinbi.html'
 
 
     def __init__(self, logger, user_name, password):
@@ -196,6 +198,15 @@ class TaoBao:
         return
 
 
+    # 从「网赚之家」领取淘金币
+    def wz598_check_in(self):
+        this_func_name = sys._getframe().f_code.co_name
+        self.logger.debug("%s(): start ..." % this_func_name)
+        self.driver.get(self.wz598_taojinbi_url)
+        time.sleep(10)
+        return
+
+
     def run(self):
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
@@ -203,6 +214,7 @@ class TaoBao:
         self.regular_check_in()
         self.shop_check_in()
         self.luck4ever_taojinbi()
+        self.wz598_check_in()
         self.driver.quit()
         return
 
