@@ -46,7 +46,7 @@ class TaoBao:
         self.password = password
         # Chrome
         self.driver = Chrome()
-        # Firefox
+        # # Firefox
         # ff_binary = FirefoxBinary(firefox_path='/usr/bin/firefox-bin', log_file='/tmp/firefox-bin.log')
         # ff_capabilities = DesiredCapabilities.FIREFOX
         # ff_capabilities['marionette'] = True
@@ -127,6 +127,7 @@ class TaoBao:
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): current_url: %s" % (this_func_name, self.driver.current_url))
         self.driver.find_element_by_xpath('//p[@class="btns"]/button[@type="submit" and @class="bt-submit"]').click()
+        time.sleep(2)
         # 领取的淘金币可能超过每日上限
         flag = True
         if '您今天获得的淘金币将达上限，本次领取失败' in self.driver.page_source:
@@ -146,9 +147,9 @@ class TaoBao:
         try:
             self.driver.find_element_by_xpath('//div[@class="operate"]/a[@class="continue J_Continue J_Submit" and @href="#" and text()="立即分享"]').click()
             time.sleep(2)
-            # 弹出警告框，无法再分享
+            # 亲，同样的内容不要重复分享哦！换个新鲜的吧~
             # 一直蒙头分享啊?歇歇,去我的淘宝里看看朋友在分享些啥吧
-            if self.driver.find_element_by_xpath('//div[@class="sns-widget-alert-buttons clearfix"]/a[@class="sns-widget-alert-sure" and @title="确定" and text()="确 定"]').is_displayed():
+            if self.driver.find_element_by_xpath('//div[@class="sns-widget-alert-buttons clearfix"]/a[@class="sns-widget-alert-sure" and @title="确定" and text()="确 定"]').is_displayed() and '亲，同样的内容不要重复分享哦！换个新鲜的吧~' not in self.driver.page_source:
                 flag = False
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
