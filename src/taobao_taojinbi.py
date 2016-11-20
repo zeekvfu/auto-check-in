@@ -10,7 +10,7 @@ import time
 from io import StringIO
 from lxml import etree
 
-from selenium.webdriver import Chrome, Firefox
+from selenium.webdriver import PhantomJS, Chrome, Firefox
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -44,8 +44,13 @@ class TaoBao:
         self.logger.debug("%s(): start ..." % this_func_name)
         self.user_name = user_name
         self.password = password
+
+        # # PhantomJS
+        # self.driver = PhantomJS(executable_path='/home/nostalgia/_program/phantomjs-2.1.1-linux-x86_64/bin/phantomjs')
+
         # Chrome
         self.driver = Chrome()
+
         # # Firefox
         # ff_binary = FirefoxBinary(firefox_path='/usr/bin/firefox-bin', log_file='/tmp/firefox-bin.log')
         # ff_capabilities = DesiredCapabilities.FIREFOX
@@ -77,7 +82,12 @@ class TaoBao:
             ActionChains(self.driver).drag_and_drop_by_offset(source, 600, 0).perform()
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
-        return
+
+        flag = False
+        if '我的足迹' in self.driver.page_source:
+            flag = True
+        self.logger.debug("%s(): login: %s" % (this_func_name, flag))
+        return flag
 
 
     # 普通签到
@@ -132,7 +142,7 @@ class TaoBao:
         flag = True
         if '您今天获得的淘金币将达上限，本次领取失败' in self.driver.page_source:
             flag = False
-        self.logger.debug("%s(): current_url: %s\t\tflag:%s" % (this_func_name, self.driver.current_url, flag))
+        self.logger.debug("%s(): current_url: %s\t\tflag: %s" % (this_func_name, self.driver.current_url, flag))
         return flag
 
 
@@ -154,7 +164,7 @@ class TaoBao:
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
         finally:
-            self.logger.debug("%s(): current_url: %s\t\tflag:%s" % (this_func_name, self.driver.current_url, flag))
+            self.logger.debug("%s(): current_url: %s\t\tflag: %s" % (this_func_name, self.driver.current_url, flag))
             return flag
 
 
@@ -211,7 +221,9 @@ class TaoBao:
     def run(self):
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
-        self.login()
+        # 登录失败，退出
+        if not self.login():
+            return
         self.regular_check_in()
         self.shop_check_in()
         self.luck4ever_taojinbi()
