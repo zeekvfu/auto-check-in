@@ -221,13 +221,11 @@ class TaoBao:
     def run(self):
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
-        # 登录失败，退出
-        if not self.login():
-            return
-        self.regular_check_in()
-        self.shop_check_in()
-        self.luck4ever_taojinbi()
-        self.wz598_check_in()
+        if self.login():
+            self.regular_check_in()
+            self.shop_check_in()
+            self.luck4ever_taojinbi()
+            self.wz598_check_in()
         self.driver.quit()
         return
 
