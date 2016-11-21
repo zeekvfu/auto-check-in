@@ -190,7 +190,7 @@ class TaoBao:
             if not flag:
                 break
 
-        # 分享店铺
+        # 分享店铺（每天的分享次数有限制）
         elements = self.driver.find_elements_by_xpath('//p[@style="white-space: normal;" and contains(text(), "分享店铺:")]/a[@target="_blank" and contains(@href, "https://share.jianghu.taobao.com/share/") and @rel="nofollow"]')
         for element in elements:
             element.click()
