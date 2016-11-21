@@ -139,7 +139,7 @@ class TaoBao:
         flag = True
         if '您今天获得的淘金币将达上限，本次领取失败' in self.driver.page_source:
             flag = False
-        self.logger.debug("%s(): current_url: %s\t\tflag: %s" % (this_func_name, self.driver.current_url, flag))
+        self.logger.debug("%s(): current_url: %s\tflag: %s" % (this_func_name, self.driver.current_url, flag))
         return flag
 
 
@@ -148,12 +148,15 @@ class TaoBao:
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): current_url: %s" % (this_func_name, self.driver.current_url))
         if '该店铺不存在,无法进行分享' in self.driver.page_source:
-            self.logger.debug("%s(): current_url: %s\t\tflag:%s" % (this_func_name, self.driver.current_url, True))
+            self.logger.debug("%s(): current_url: %s\tflag: %s\tshop not exist" % (this_func_name, self.driver.current_url, True))
+            return True
+        if '本次分享可以获得金币：' not in self.driver.page_source:
+            self.logger.debug("%s(): current_url: %s\tflag: %s\tno taojinbi" % (this_func_name, self.driver.current_url, True))
             return True
         flag = True
         try:
             self.driver.find_element_by_xpath('//div[@class="operate"]/a[@class="continue J_Continue J_Submit" and @href="#" and text()="立即分享"]').click()
-            time.sleep(2)
+            time.sleep(5)
             # 亲，同样的内容不要重复分享哦！换个新鲜的吧~
             # 一直蒙头分享啊?歇歇,去我的淘宝里看看朋友在分享些啥吧
             if self.driver.find_element_by_xpath('//div[@class="sns-widget-alert-buttons clearfix"]/a[@class="sns-widget-alert-sure" and @title="确定" and text()="确 定"]').is_displayed() and '亲，同样的内容不要重复分享哦！换个新鲜的吧~' not in self.driver.page_source:
@@ -161,7 +164,7 @@ class TaoBao:
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
         finally:
-            self.logger.debug("%s(): current_url: %s\t\tflag: %s" % (this_func_name, self.driver.current_url, flag))
+            self.logger.debug("%s(): current_url: %s\tflag: %s" % (this_func_name, self.driver.current_url, flag))
             return flag
 
 
