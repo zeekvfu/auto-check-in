@@ -158,8 +158,11 @@ class TaoBao:
             self.driver.find_element_by_xpath('//div[@class="operate"]/a[@class="continue J_Continue J_Submit" and @href="#" and text()="立即分享"]').click()
             time.sleep(5)
             # 亲，同样的内容不要重复分享哦！换个新鲜的吧~
+            # 分享成功！你本月已分享过该店铺，去分享别的店铺赚金币吧~
+            # 恭喜！分享成功并获得5淘金币
             # 一直蒙头分享啊?歇歇,去我的淘宝里看看朋友在分享些啥吧
-            if self.driver.find_element_by_xpath('//div[@class="sns-widget-alert-buttons clearfix"]/a[@class="sns-widget-alert-sure" and @title="确定" and text()="确 定"]').is_displayed() and '亲，同样的内容不要重复分享哦！换个新鲜的吧~' not in self.driver.page_source:
+            # 分享成功！今天分享赚金币将超上限，去花金币抵钱~
+            if '一直蒙头分享啊?歇歇,去' in self.driver.page_source or '分享成功！今天分享赚金币将超上限，去花金币抵钱~' in self.driver.page_source:
                 flag = False
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
