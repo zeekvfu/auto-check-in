@@ -1,7 +1,7 @@
 auto-check-in
 =======
 ### 用途
-多家网站（eg. 淘宝、V2EX）的自动登录、签到。支持多用户。
+多家网站（eg. 淘宝、京东、V2EX）的自动登录、签到。支持多用户。
 ### 运行环境
 Linux/Windows + Python 3.x
 
@@ -15,6 +15,18 @@ Selenium, Chrome/Firefox, lxml
 ```
 cd auto-check-in/src
 PYTHONPATH=$(pwd) python3 taobao_taojinbi.py
+```
+
+# 京东
+### 用途
+登录[淘宝](https://www.jd.com/)，领取京豆。
+### 软件包依赖
+Selenium, Chrome/Firefox
+### 运行方法
+在 GUI 下，  
+```
+cd auto-check-in/src
+PYTHONPATH=$(pwd) python3 jd_jingdou.py
 ```
 
 # V2EX
