@@ -19,7 +19,7 @@ PYTHONPATH=$(pwd) python3 taobao_taojinbi.py
 
 # 京东
 ### 用途
-登录[淘宝](https://www.jd.com/)，领取京豆。
+登录[京东](https://www.jd.com/)，领取京豆。
 ### 软件包依赖
 Selenium, Chrome/Firefox
 ### 运行方法
