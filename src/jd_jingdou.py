@@ -9,6 +9,7 @@ import time
 
 from selenium.webdriver import PhantomJS, Chrome, Firefox
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
 
 from util.utility import get_logger
 from util.http_utility import pc_browser_ua
@@ -93,6 +94,8 @@ class JD:
             self.driver.find_element_by_xpath('//div[@class="qian-icon x-qian"]').click()
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
+        except WebDriverException as e:
+            self.logger.debug("%s(): WebDriverException" % this_func_name)
         time.sleep(3)
         return
 
