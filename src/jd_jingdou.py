@@ -74,12 +74,12 @@ class JD:
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
         self.driver.get(self.vip_url)
-        time.sleep(3)
+        time.sleep(5)
         try:
             self.driver.find_element_by_xpath('//a[@href="javascript:void(0)" and @clstag="vip|keycount|homepage|checkin" and @id="checkinBtn" and @class="item checkin    checkin-ready  "]/i[@class="icon-set"]').click()
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
-        time.sleep(3)
+        time.sleep(5)
         return
 
 
@@ -88,7 +88,7 @@ class JD:
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
         self.driver.get(self.finance_url)
-        time.sleep(3)
+        time.sleep(5)
         try:
             # self.driver.find_element_by_xpath('//div[@class="qian-icon x-qian"]/div[@class="x-yi-q"]').click()
             self.driver.find_element_by_xpath('//div[@class="qian-icon x-qian"]').click()
@@ -96,7 +96,7 @@ class JD:
             self.logger.debug("%s(): NoSuchElementException" % this_func_name)
         except WebDriverException as e:
             self.logger.debug("%s(): WebDriverException" % this_func_name)
-        time.sleep(3)
+        time.sleep(5)
         return
 
 
