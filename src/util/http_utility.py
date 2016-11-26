@@ -254,6 +254,9 @@ def get_html_content(logger, url, post_data=None, referer=None, user_agent=None,
     except http.client.InvalidURL as e:
         logger.error("%s(): http.client.InvalidURL\t%s" % (this_func_name, url))
         return -1, e
+    except http.client.UnknownProtocol as e:
+        logger.error("%s(): http.client.UnknownProtocol\t%s" % (this_func_name, url))
+        return -1, e
     except http.client.BadStatusLine as e:
         logger.error("%s(): http.client.BadStatusLine" % this_func_name)
         if retry > 0:
