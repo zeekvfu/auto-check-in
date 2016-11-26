@@ -15,7 +15,7 @@ AutoCheckIn="$work_dir/.."
 
 sleep `Random`m
 
-cd "$AutoCheckIn/src"
+cd "$AutoCheckIn"/src
 PYTHONPATH=$(pwd) python3 v2ex_copper_coin.py
 
 
