@@ -35,7 +35,7 @@ class TaoBao:
     regular_check_in_url = 'https://taojinbi.taobao.com/index.htm'
     shop_check_in_url = 'https://www.taobao.com/markets/taojinbi/happy-valley'
     luck4ever_taojinbi_url = 'http://www.luck4ever.net/archives/taojinbi-50.html'
-    # 「网赚之家」领取淘金币 URL，需要先登录
+    # 「网赚之家」领取淘金币 URL，需要先登录淘宝
     wz598_taojinbi_url = 'http://www.wz598.com/taojinbi.html'
 
 
