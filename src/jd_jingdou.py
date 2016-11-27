@@ -8,6 +8,7 @@ import sys
 import time
 
 from selenium.webdriver import PhantomJS, Chrome, Firefox
+from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import WebDriverException
 
@@ -45,7 +46,7 @@ class JD:
         try:
             self.driver.find_element_by_xpath('//div[@class="login-tab login-tab-r"]/a[@href="javascript:void(0)" and contains(@clstag, "pageclick|keycount|") and @class and contains(@style, "outline: rgb(")]').click()
         except NoSuchElementException as e:
-            self.logger.debug("%s(): NoSuchElementException" % this_func_name)
+            self.logger.debug("%s(): NoSuchElementException\t%s" % (this_func_name, self.driver.current_url))
 
         # 用户名
         element = self.driver.find_element_by_xpath('//div[@class="item item-fore1"]/input[@id="loginname" and @type="text" and @class="itxt" and @name="loginname" and @tabindex="1" and @autocomplete="off" and @placeholder="邮箱/用户名/已验证手机"]')
@@ -66,6 +67,7 @@ class JD:
         if self.driver.find_element_by_xpath('//div[@class="user_info_show"]/p/a[@href="//home.jd.com"]').is_displayed():
             flag = True
         self.logger.debug("%s(): login: %s" % (this_func_name, flag))
+        self.logger.debug("%s(): end ..." % this_func_name)
         return flag
 
 
@@ -73,13 +75,18 @@ class JD:
     def vip_check_in(self):
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
-        self.driver.get(self.vip_url)
-        time.sleep(5)
         try:
+            self.driver.get(self.vip_url)
+            time.sleep(5)
             self.driver.find_element_by_xpath('//a[@href="javascript:void(0)" and @clstag="vip|keycount|homepage|checkin" and @id="checkinBtn" and @class="item checkin    checkin-ready  "]/i[@class="icon-set"]').click()
+        except TimeoutException as e:
+            self.logger.debug("%s(): TimeoutException\t%s" % (this_func_name, self.driver.current_url))
         except NoSuchElementException as e:
-            self.logger.debug("%s(): NoSuchElementException" % this_func_name)
+            self.logger.debug("%s(): NoSuchElementException\t%s" % (this_func_name, self.driver.current_url))
+        except WebDriverException as e:
+            self.logger.debug("%s(): WebDriverException\t%s" % (this_func_name, self.driver.current_url))
         time.sleep(5)
+        self.logger.debug("%s(): end ..." % this_func_name)
         return
 
 
@@ -92,11 +99,14 @@ class JD:
         try:
             # self.driver.find_element_by_xpath('//div[@class="qian-icon x-qian"]/div[@class="x-yi-q"]').click()
             self.driver.find_element_by_xpath('//div[@class="qian-icon x-qian"]').click()
+        except TimeoutException as e:
+            self.logger.debug("%s(): TimeoutException\t%s" % (this_func_name, self.driver.current_url))
         except NoSuchElementException as e:
-            self.logger.debug("%s(): NoSuchElementException" % this_func_name)
+            self.logger.debug("%s(): NoSuchElementException\t%s" % (this_func_name, self.driver.current_url))
         except WebDriverException as e:
-            self.logger.debug("%s(): WebDriverException" % this_func_name)
+            self.logger.debug("%s(): WebDriverException\t%s" % (this_func_name, self.driver.current_url))
         time.sleep(5)
+        self.logger.debug("%s(): end ..." % this_func_name)
         return
 
 
@@ -107,6 +117,7 @@ class JD:
             self.vip_check_in()
             self.finance_check_in()
         self.driver.quit()
+        self.logger.debug("%s(): end ..." % this_func_name)
         return
 
 
