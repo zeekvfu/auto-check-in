@@ -62,6 +62,7 @@ class V2EX:
         if len(l) == 1:
             once = l[0]
         self.logger.debug("%s(): user_name_key: %s\tpassword_key: %s\tonce: %s" % (this_func_name, user_name_key, password_key, once))
+        self.logger.debug("%s(): end ..." % this_func_name)
         return user_name_key, password_key, once
 
 
@@ -84,6 +85,7 @@ class V2EX:
         if "条未读提醒" in response.text:
             flag = True
         self.logger.debug("%s(): url: %s\tPOST: %s\tlogin: %s" % (this_func_name, self.login_url, d, flag))
+        self.logger.debug("%s(): end ..." % this_func_name)
         return flag
 
 
@@ -109,6 +111,7 @@ class V2EX:
         if "已成功领取每日登录奖励" in response.text:
             flag = True
         self.logger.debug("%s(): url: %s\tcopper_coin: %s" % (this_func_name, url, flag))
+        self.logger.debug("%s(): end ..." % this_func_name)
         return
 
 
@@ -118,6 +121,7 @@ class V2EX:
         user_name_key, password_key, once = self.get_login_parameters()
         if self.login(user_name_key, password_key, once):
             self.get_copper_coin(once)
+        self.logger.debug("%s(): end ..." % this_func_name)
         return
 
 
