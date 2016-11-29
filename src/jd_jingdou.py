@@ -57,7 +57,7 @@ class JD:
         element.clear()
         element.send_keys(self.password)
         # 自动登录
-        element = self.driver.find_element_by_xpath('//div[@class="item item-fore3"]/div[@class="safe"]/span/input[@id="autoLogin" and @name="chkRememberMe" and @type="checkbox" and @class="jdcheckbox" and @tabindex="3" and contains(@clstag, "pageclick|keycount|")]')
+        element = self.driver.find_element_by_xpath('//div[@class="item item-fore4"]/div[@class="safe"]/span/input[@id="autoLogin" and @name="chkRememberMe" and @type="checkbox" and @class="jdcheckbox" and @tabindex="3" and contains(@clstag, "pageclick|keycount|")]')
         element.click()
         # 点击登录
         self.driver.find_element_by_xpath('//div[@class="item item-fore5"]/div[@class="login-btn"]/a[@href="javascript:;" and @class="btn-img btn-entry" and @id="loginsubmit" and @tabindex="6"]').click()
