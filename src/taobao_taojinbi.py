@@ -248,8 +248,11 @@ class TaoBao:
         self.logger.debug("%s(): start ..." % this_func_name)
         self.driver.get(self.etao_check_in_url)
         time.sleep(3)
-        self.driver.find_element_by_xpath('//div[@id="J_SignIn" and @class="sign-in" and @data-stat="etao.etao_newsy.qd"]/div[@class="ci_receive" and contains(text(), "签到")]/s[@class="ci_icon"]').click()
-        time.sleep(10)
+        try:
+            self.driver.find_element_by_xpath('//div[@id="J_SignIn" and @class="sign-in" and @data-stat="etao.etao_newsy.qd"]/div[@class="ci_receive" and contains(text(), "签到")]/s[@class="ci_icon"]').click()
+            time.sleep(10)
+        except WebDriverException as e:
+            self.logger.debug("%s(): WebDriverException\t%s" % (this_func_name, self.driver.current_url))
         self.logger.debug("%s(): end ..." % this_func_name)
         return
 
