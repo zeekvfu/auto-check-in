@@ -37,6 +37,7 @@ class TaoBao:
     luck4ever_taojinbi_url = 'http://www.luck4ever.net/archives/taojinbi-50.html'
     # 「网赚之家」领取淘金币 URL，需要先登录淘宝
     wz598_taojinbi_url = 'http://www.wz598.com/taojinbi.html'
+    etao_check_in_url='http://www.etao.com/'
 
 
     def __init__(self, logger, user_name, password):
@@ -241,6 +242,18 @@ class TaoBao:
         return
 
 
+    # 一淘签到，领取淘金币
+    def etao_check_in(self):
+        this_func_name = sys._getframe().f_code.co_name
+        self.logger.debug("%s(): start ..." % this_func_name)
+        self.driver.get(self.etao_check_in_url)
+        time.sleep(3)
+        self.driver.find_element_by_xpath('//div[@id="J_SignIn" and @class="sign-in" and @data-stat="etao.etao_newsy.qd"]/div[@class="ci_receive" and contains(text(), "签到")]/s[@class="ci_icon"]').click()
+        time.sleep(10)
+        self.logger.debug("%s(): end ..." % this_func_name)
+        return
+
+
     def run(self):
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
@@ -249,6 +262,7 @@ class TaoBao:
             self.shop_check_in()
             self.luck4ever_taojinbi()
             self.wz598_check_in()
+            self.etao_check_in()
         self.driver.quit()
         self.logger.debug("%s(): end ..." % this_func_name)
         return
