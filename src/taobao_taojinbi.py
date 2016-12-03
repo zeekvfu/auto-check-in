@@ -95,14 +95,28 @@ class TaoBao:
         this_func_name = sys._getframe().f_code.co_name
         self.logger.debug("%s(): start ..." % this_func_name)
         self.driver.get(self.regular_check_in_url)
-        time.sleep(5)
+        time.sleep(3)
         try:
-            self.driver.find_element_by_xpath('//div[@class="my-btns"]/a[@class="btn login-btn J_GoTodayBtn" and @href="#" and contains(text(), "今日可领")]').click()
-            time.sleep(5)
+            # self.driver.find_element_by_xpath('//dd/a[contains(@href, "http://taojinbi.taobao.com/") and @target="_blank" and @role="menuitem" and text()="淘金币"]').click()
+            # time.sleep(3)
+            # # 切换到新的 window 下
+            # self.driver.switch_to.window(self.driver.window_handles[1])
+
+            # self.driver.find_element_by_xpath('//div[@class="my-btns"]/a[@class="btn login-btn J_GoTodayBtn" and @href="#" and contains(text(), "今日可领")]').click()
+            element = self.driver.find_element_by_xpath('//div[@class="my-btns"]/a[@class="btn login-btn J_GoTodayBtn" and @href="#" and contains(text(), "今日可领")]')
+            ActionChains(self.driver).move_to_element_with_offset(element, -200, -200).click().perform()
+            time.sleep(1)
+            ActionChains(self.driver).move_to_element_with_offset(element, -200, 200).click().perform()
+            time.sleep(1)
+            ActionChains(self.driver).move_to_element_with_offset(element, 3, 5).click().perform()
+            time.sleep(3)
+
             source = self.driver.find_element_by_xpath('//span[@class="nc-lang-cnt" and @data-nc-lang="_startTEXT" and text()="请按住滑块，拖动到最右边"]')
-            ActionChains(self.driver).drag_and_drop_by_offset(source, 1200, 0).perform()
+            ActionChains(self.driver).drag_and_drop_by_offset(source, 600, 0).perform()
+            time.sleep(3)
         except NoSuchElementException as e:
-            self.logger.debug("%s(): NoSuchElementException" % this_func_name)
+            self.logger.debug("%s(): NoSuchElementException\t%s" % (this_func_name, self.driver.current_url))
+        self.logger.debug("%s(): end ..." % this_func_name)
         return
 
 
