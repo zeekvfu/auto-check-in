@@ -44,7 +44,7 @@ class JD:
         self.driver.get(self.login_url)
         # 登录方式切换：扫码登录、账户登录
         try:
-            self.driver.find_element_by_xpath('//div[@class="login-tab login-tab-r"]/a[@href="javascript:void(0)" and contains(@clstag, "pageclick|keycount|") and @class and contains(@style, "outline: rgb(")]').click()
+            self.driver.find_element_by_xpath('//div[@class="login-tab login-tab-r"]/a[@href="javascript:void(0)" and contains(@clstag, "pageclick|keycount|") and text()="账户登录"]').click()
         except NoSuchElementException as e:
             self.logger.debug("%s(): NoSuchElementException\t%s" % (this_func_name, self.driver.current_url))
 
