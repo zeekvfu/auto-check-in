@@ -1,9 +1,10 @@
+.vscode
 .idea
 __pycache__
 *.pyc
 
 log
 output
+nohup.out
 conf/CMD.TXT
-
 

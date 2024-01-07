@@ -1,0 +1,3 @@
+# crontab
+
+0 0 * * *		cd /home/zeek/MyProject/auto-check-in/run && ./auto_check_in.sh rq
