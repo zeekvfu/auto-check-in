@@ -14,7 +14,6 @@ fi
 
 
 MyProject=`get_my_project_path`
-AutoCheckIn="$MyProject/auto-check-in"
 PythonUtilSrc="$MyProject/python-util/src"
 export PYTHONPATH=$PYTHONPATH:$PythonUtilSrc
 
@@ -22,6 +21,9 @@ export PYTHONPATH=$PYTHONPATH:$PythonUtilSrc
 rand=$(( ( RANDOM % 3600 ) ))
 sleep ${rand}s
 
+
+AutoCheckIn="$MyProject/auto-check-in"
+mkdir -p ${AutoCheckIn}/log
 
 app_file_name="$1".py
 cd $AutoCheckIn/python

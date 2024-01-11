@@ -1,0 +1,14 @@
+{
+	"log_level": "logging.DEBUG",
+	"apps": {
+		"rq": {
+			"PHPSESSID" : [
+				"a",
+				"b"
+			]
+		},
+		"v2ex": {
+			"cookie_file_dir" : "../conf/cookies/v2ex"
+		}
+	}
+}

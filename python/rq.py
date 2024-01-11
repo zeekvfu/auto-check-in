@@ -3,6 +3,13 @@
 # rq.py
 
 
+"""
+TODO:
+数据库增加字段：insert_time、begin_time、months
+签到失败通知。
+"""
+
+
 import os, sys, time, random, json
 
 from util      import get_logger, to_minified_json
@@ -29,9 +36,10 @@ def rq_check_in(logger, cookies):
             rsp                  = curl(url, ua_type='iphone', cookie=cookie_str)
             rsp_formatted        = to_minified_json(json.loads(rsp))
             logger.debug("[%s] url:%s cookie_str:%s rsp_formatted:%s" % (this_func_name, url, cookie_str, rsp_formatted))
+            time.sleep(random.randint(0, 60))
 
 
-if __name__ == '__main__':
+def main():
     this_func_name = sys._getframe().f_code.co_name
 
     script_dir = get_script_dir()
@@ -42,5 +50,9 @@ if __name__ == '__main__':
 
     if 'apps' in config and 'rq' in config['apps']:
         rq_check_in(logger, config['apps']['rq'])
+
+
+if __name__ == '__main__':
+    main()
 
 
