@@ -25,8 +25,9 @@ def v2ex_check_in(logger, file):
     user_name = Path(file).stem
     parser    = etree.HTMLParser()
 
-    url = 'https://v2ex.com/mission/daily'
-    rsp = curl(url, cookie_file=file)
+    url_old = 'https://v2ex.com/mission/daily'
+    url     = url_old
+    rsp     = curl(url, cookie_file=file)
     if "每日登录奖励已领取" in rsp:
         logger.debug("%s(): user_name:%s url:%s coin already collected..." % (this_func_name, user_name, url))
         return
@@ -36,11 +37,18 @@ def v2ex_check_in(logger, file):
     path         = s[s.index("'")+1: s.rindex("'")]
     homepage_url = 'https://v2ex.com'
     url          = "%s%s" % (homepage_url, path)
-    rsp          = curl(url, ua_type='pc', cookie_file=file)
+    rsp          = curl(url, ua_type='zz_chrome', cookie_file=file, referer=url_old, req_headers=['Content-Type: text/html; charset=UTF-8'])
+    # logger.debug("%s(): user_name:%s url:%s rsp:%s" % (this_func_name, user_name, url, rsp))
+
+    msg = None
     if "已成功领取每日登录奖励" in rsp:
-        logger.debug("%s(): user_name:%s url:%s coin successfully collected!" % (this_func_name, user_name, url))
+        msg = "coin successfully collected!"
+    # 可能被要求重新点击领取
+    elif "请重新点击一次以领取每日登录奖励" in rsp:
+        msg = "requested to click again!"
     else:
-        logger.debug("%s(): user_name:%s url:%s collect coin failed!" % (this_func_name, user_name, url))
+        msg = "collect coin failed!"
+    logger.debug("%s(): user_name:%s url:%s %s" % (this_func_name, user_name, url, msg))
 
     return
 
